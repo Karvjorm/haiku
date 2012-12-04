@@ -219,7 +219,8 @@ class BitmapView : public BView {
 
 ConfigWindow::ConfigWindow()
 	:
-	BWindow(BRect(100, 100, 600, 540), B_TRANSLATE_SYSTEM_NAME("E-mail"),
+	BWindow(BRect(100, 150, 650, 580), 
+B_TRANSLATE_SYSTEM_NAME("E-mail"),
 		B_TITLED_WINDOW,
 		B_ASYNCHRONOUS_CONTROLS | B_NOT_ZOOMABLE | B_NOT_RESIZABLE),
 	fLastSelectedAccount(NULL),
