@@ -33,7 +33,24 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	fAutoConfig(config)
 {
 	int32 stepSize = 30;
-	int32 divider = 100;
+	BString emailAddress(B_TRANSLATE("E-mail address:"));
+	BString loginName(B_TRANSLATE("Login name:"));
+	BString passWord(B_TRANSLATE("Password:"));
+	BString accountName(B_TRANSLATE("Account name:"));
+	BString realName(B_TRANSLATE("Real name:"));
+
+	int32 textSize = emailAddress.Length();
+	if (textSize < loginName.Length())
+		textSize = loginName.Length();
+	if (textSize < passWord.Length())
+		textSize = passWord.Length();
+	if (textSize < accountName.Length())
+		textSize = accountName.Length();
+	if (textSize < realName.Length())
+		textSize = realName.Length();
+
+	int32 divider = 100 + textSize;
+
 	BPoint topLeft(20, 20);
 	BPoint rightDown(rect.Width() - 20, 20 + stepSize);
 
@@ -51,7 +68,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	topLeft.y += stepSize;
 	rightDown.y += stepSize;
 	fEmailView = new BTextControl(BRect(topLeft, rightDown), "email",
-		B_TRANSLATE("E-mail address:"), "", new BMessage(kEMailChangedMsg));
+		emailAddress.String(), "", new BMessage(kEMailChangedMsg));
 	fEmailView->SetDivider(divider);
 	AddChild(fEmailView);
 
@@ -59,7 +76,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	topLeft.y += stepSize;
 	rightDown.y += stepSize;
 	fLoginNameView = new BTextControl(BRect(topLeft, rightDown),
-		"login", B_TRANSLATE("Login name:"), "", NULL);
+		"login", loginName.String(), "", NULL);
 	fLoginNameView->SetDivider(divider);
 	AddChild(fLoginNameView);
 
@@ -67,7 +84,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	topLeft.y += stepSize;
 	rightDown.y += stepSize;
 	fPasswordView = new BTextControl(BRect(topLeft, rightDown), "password",
-		B_TRANSLATE("Password:"), "", NULL);
+		passWord.String(), "", NULL);
 	fPasswordView->SetDivider(divider);
 	fPasswordView->TextView()->HideTyping(true);
 	AddChild(fPasswordView);
@@ -76,7 +93,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	topLeft.y += stepSize;
 	rightDown.y += stepSize;
 	fAccountNameView = new BTextControl(BRect(topLeft, rightDown), "account",
-		B_TRANSLATE("Account name:"), "", NULL);
+		accountName.String(), "", NULL);
 	fAccountNameView->SetDivider(divider);
 	AddChild(fAccountNameView);
 
@@ -84,7 +101,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	topLeft.y += stepSize;
 	rightDown.y += stepSize;
 	fNameView = new BTextControl(BRect(topLeft, rightDown), "name",
-		B_TRANSLATE("Real name:"), "", NULL);
+		realName.String(), "", NULL);
 	AddChild(fNameView);
 	fNameView->SetDivider(divider);
 
