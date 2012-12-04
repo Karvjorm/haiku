@@ -43,21 +43,27 @@ AutoConfigWindow::AutoConfigWindow(BRect rect, ConfigWindow *parent)
 	fRootView->SetViewColor(ui_color(B_PANEL_BACKGROUND_COLOR));
 	AddChild(fRootView);
 
+	BString backText(B_TRANSLATE("Back"));
+	BString nextText(B_TRANSLATE("Next"));
 	int32 buttonHeight = 25;
 	int32 buttonWidth = 50;
+	if (backText.Length() < nextText.Length())
+		buttonWidth += (5 * nextText.Length());
+	else
+		buttonWidth += (5 * backText.Length());
 	BRect buttonRect = Bounds();
 	buttonRect.InsetBy(5,5);
 	buttonRect.top = buttonRect.bottom - buttonHeight;
 	buttonRect.left = buttonRect.right - 2 * buttonWidth - 5;
 	buttonRect.right = buttonRect.left + buttonWidth;
-	fBackButton = new BButton(buttonRect, "back", B_TRANSLATE("Back"),
+	fBackButton = new BButton(buttonRect, "back", backText.String(),
 		new BMessage(kBackMsg));
 	fBackButton->SetEnabled(false);
 	fRootView->AddChild(fBackButton);
 
 	buttonRect.left += 5 + buttonWidth;
 	buttonRect.right = buttonRect.left + buttonWidth;
-	fNextButton = new BButton(buttonRect, "next", B_TRANSLATE("Next"),
+	fNextButton = new BButton(buttonRect, "next",nextText.String(),
 		new BMessage(kOkMsg));
 	fNextButton->MakeDefault(true);
 	fRootView->AddChild(fNextButton);
