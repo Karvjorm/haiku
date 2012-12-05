@@ -86,17 +86,23 @@ AccountConfigView::AccountConfigView(BRect rect, BMailAccountSettings* account)
 	rect = view->Bounds();
 	rect.bottom = height + 5;
 
-	float labelWidth = view->StringWidth(B_TRANSLATE("Account name:")) + 6;
-
+	BString accountName(B_TRANSLATE("Account name:"));
+	BString realName(B_TRANSLATE("Real name:"));
+	BString returnAddress(B_TRANSLATE("Return address:"));
+	float labelWidth = view->StringWidth(accountName.String()) + (float)6;
+	if (labelWidth < (view->StringWidth(realName.String()) + (float)6))
+		labelWidth = view->StringWidth(realName.String()) + (float)6;
+	if (labelWidth < (view->StringWidth(returnAddress.String()) + (float)6))
+		labelWidth = view->StringWidth(returnAddress.String()) + (float)6;
 	view->AddChild(fNameControl = new BTextControl(rect, NULL,
-		B_TRANSLATE("Account name:"), NULL,
+		accountName.String(), NULL,
 		new BMessage(kMsgAccountNameChanged)));
 	fNameControl->SetDivider(labelWidth);
 	view->AddChild(fRealNameControl = new BTextControl(rect, NULL,
-		B_TRANSLATE("Real name:"), NULL, NULL));
+		realName.String(), NULL, NULL));
 	fRealNameControl->SetDivider(labelWidth);
 	view->AddChild(fReturnAddressControl = new BTextControl(rect, NULL,
-		B_TRANSLATE("Return address:"), NULL, NULL));
+		returnAddress.String(), NULL, NULL));
 	fReturnAddressControl->SetDivider(labelWidth);
 //			control->TextView()->HideTyping(true);
 
