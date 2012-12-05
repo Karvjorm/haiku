@@ -632,7 +632,7 @@ ConfigWindow::QuitRequested()
 void
 ConfigWindow::MessageReceived(BMessage *msg)
 {
-	BRect autoConfigRect(0, 0, 400, 300);
+	BRect autoConfigRect(0, 0, 500, 300);
 	BRect frame;
 
 	AutoConfigWindow *autoConfigWindow = NULL;
