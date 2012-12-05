@@ -342,7 +342,7 @@ B_TRANSLATE_SYSTEM_NAME("E-mail"),
 
 	// Miscellaneous settings box
 
-	rect = box->Frame();  rect.bottom = rect.top + 3 * height + 63 /* 33 */;
+	rect = box->Frame();  rect.bottom = rect.top + 3 * height + 63;
 	box = new BBox(rect);
 	box->SetLabel(B_TRANSLATE("Miscellaneous"));
 	view->AddChild(box);
@@ -391,7 +391,6 @@ B_TRANSLATE_SYSTEM_NAME("E-mail"),
 		button->SetEnabled(false);
 
 	rect = button->Frame();
-	/* rect.OffsetBy(rect.Width() + 30,0); */
 	rect.OffsetBy(0, rect.Height() + 10);
 	fAutoStartCheckBox = new BCheckBox(rect, "start daemon",
 		B_TRANSLATE("Start mail services on startup"), NULL);
