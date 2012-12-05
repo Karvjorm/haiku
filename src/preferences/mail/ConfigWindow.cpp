@@ -342,7 +342,7 @@ B_TRANSLATE_SYSTEM_NAME("E-mail"),
 
 	// Miscellaneous settings box
 
-	rect = box->Frame();  rect.bottom = rect.top + 3 * height + 33;
+	rect = box->Frame();  rect.bottom = rect.top + 3 * height + 63 /* 33 */;
 	box = new BBox(rect);
 	box->SetLabel(B_TRANSLATE("Miscellaneous"));
 	view->AddChild(box);
@@ -369,7 +369,7 @@ B_TRANSLATE_SYSTEM_NAME("E-mail"),
 	fStatusModeField->SetDivider(labelWidth);
 	box->AddChild(fStatusModeField);
 
-	rect = fStatusModeField->Frame();;
+	rect = fStatusModeField->Frame();
 	rect.OffsetBy(0, rect.Height() + 10);
 	BMessage* msg = new BMessage(B_REFS_RECEIVED);
 	BButton *button = new BButton(rect, B_EMPTY_STRING,
@@ -391,7 +391,8 @@ B_TRANSLATE_SYSTEM_NAME("E-mail"),
 		button->SetEnabled(false);
 
 	rect = button->Frame();
-	rect.OffsetBy(rect.Width() + 30,0);
+	/* rect.OffsetBy(rect.Width() + 30,0); */
+	rect.OffsetBy(0, rect.Height() + 10);
 	fAutoStartCheckBox = new BCheckBox(rect, "start daemon",
 		B_TRANSLATE("Start mail services on startup"), NULL);
 	fAutoStartCheckBox->ResizeToPreferred();

@@ -52,7 +52,7 @@ AutoConfigView::AutoConfigView(BRect rect, AutoConfig &config)
 	int32 divider = 100 + textSize;
 
 	BPoint topLeft(20, 20);
-	BPoint rightDown(rect.Width() - 20, 20 + stepSize);
+	BPoint rightDown(rect.Width() -5, 20 + stepSize);
 
 	// protocol view
 	topLeft.y += stepSize;
