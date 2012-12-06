@@ -1,6 +1,6 @@
 resource(1, "POP Server") "pop.saunalahti.fi";
 resource(2, "IMAP Server") "pop.saunalahti.fi";
-resource(3, "SMTP Server") "smtp.saunalahti.fi:465";
+resource(3, "SMTP Server") "smtp.saunalahti.fi";
 resource(4, "POP Authentication") 0;
 resource(5, "SMTP Authentication") 1;
 resource(6, "POP SSL") 0;
