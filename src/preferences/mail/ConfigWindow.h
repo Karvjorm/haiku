@@ -47,6 +47,7 @@ public:
 
 			void				SetConfigPanel(BView* panel);
 			BView*				ConfigPanel();
+			void				SetType(enum item_types kind) { fType = kind; }
 private:
 			BMailAccountSettings*	fAccount;
 			item_types			fType;

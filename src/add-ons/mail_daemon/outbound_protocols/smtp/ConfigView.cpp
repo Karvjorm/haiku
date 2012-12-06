@@ -16,7 +16,6 @@
 #include <MailPrivate.h>
 #include <ProtocolConfigView.h>
 
-
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "ConfigView"
 

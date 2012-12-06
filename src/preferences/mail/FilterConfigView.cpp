@@ -188,9 +188,11 @@ public:
 		SetLabel(label);
 		float w = child->Bounds().Width();
 		float h = child->Bounds().Height();
-		child->MoveTo(3, 13);
-		ResizeTo(w + 6, h + 16);
-		AddChild(child);
+		child->MoveTo(4, 15);
+		ResizeTo(w + 60, h + 20);
+		//AddChild(child);
+		if (!child->Parent())
+			AddChild(child);
 	}
 
 	status_t
@@ -257,21 +259,23 @@ FiltersConfigView::FiltersConfigView(BRect rect, BMailAccountSettings& account)
 	rect.top = rect.bottom + 8;
 	rect.bottom = rect.top + height;
 	BRect sizeRect = rect;
+	BString addFilter(B_TRANSLATE("Add filter"));
 	sizeRect.right = sizeRect.left + 30
-		+ fChainsField->StringWidth(B_TRANSLATE("Add filter"));
+		+ fChainsField->StringWidth(addFilter.String());
 
-	menu = new BPopUpMenu(B_TRANSLATE("Add filter"));
+	menu = new BPopUpMenu(addFilter.String());
 	menu->SetRadioMode(false);
 
 	fAddField = new BMenuField(rect, NULL, NULL, menu);
 	fAddField->ResizeToPreferred();
 	AddChild(fAddField);
 
+	BString removeButton(B_TRANSLATE("Remove"));
 	sizeRect.left = sizeRect.right + 5;
 	sizeRect.right = sizeRect.left + 30
-		+ fChainsField->StringWidth(B_TRANSLATE("Remove"));
+		+ fChainsField->StringWidth(removeButton.String());
 	sizeRect.top--;
-	AddChild(fRemoveButton = new BButton(sizeRect, NULL, B_TRANSLATE("Remove"),
+	AddChild(fRemoveButton = new BButton(sizeRect, NULL, removeButton.String(),
 		new BMessage(kMsgRemoveFilter), B_FOLLOW_BOTTOM));
 
 	ResizeTo(Bounds().Width(), sizeRect.bottom + 10);
@@ -468,7 +472,6 @@ FiltersConfigView::MessageReceived(BMessage *msg)
 				fListView->RemoveItem(to);
 				break;
 			}    
-
 			break;
 		}
 		default:

@@ -212,7 +212,7 @@ InProtocolsConfigView::DetachedFromWindow()
 
 OutProtocolsConfigView::OutProtocolsConfigView(BMailAccountSettings* account)
 	:
-	BBox(BRect(0, 0, 100, 100)),
+	BBox(BRect(0, 0, 150, 100)),
 	fAccount(account),
 	fConfigView(NULL)
 {
@@ -223,7 +223,7 @@ OutProtocolsConfigView::OutProtocolsConfigView(BMailAccountSettings* account)
 		&fImageID);
 
 	if (fConfigView) {
-		float w = fConfigView->Bounds().Width();
+		float w = fConfigView->Bounds().Width() + 35;
 		float h = fConfigView->Bounds().Height();
 		fConfigView->MoveTo(3, 13);
 		ResizeTo(w + 6, h + 16);

@@ -219,9 +219,8 @@ class BitmapView : public BView {
 
 ConfigWindow::ConfigWindow()
 	:
-	BWindow(BRect(100, 150, 650, 580), 
-B_TRANSLATE_SYSTEM_NAME("E-mail"),
-		B_TITLED_WINDOW,
+	BWindow(BRect(100, 150, 650, 580), B_TRANSLATE_SYSTEM_NAME("E-mail"),
+		B_TITLED_WINDOW, 
 		B_ASYNCHRONOUS_CONTROLS | B_NOT_ZOOMABLE | B_NOT_RESIZABLE),
 	fLastSelectedAccount(NULL),
 	fSaveSettings(false)
@@ -582,7 +581,7 @@ ConfigWindow::_SaveSettings()
 		settings.SetDaemonAutoStarts(fAutoStartCheckBox->Value()
 			== B_CONTROL_ON);
 
-		// status mode (alway, fetching/retrieving, ...)
+		// status mode (always, fetching/retrieving, ...)
 		int32 index = fStatusModeField->Menu()->IndexOf(
 			fStatusModeField->Menu()->FindMarked());
 		settings.SetShowStatusWindow(index);
@@ -702,8 +701,10 @@ ConfigWindow::MessageReceived(BMessage *msg)
 				break;
 			}
 			AccountItem *item = (AccountItem *)fAccountsListView->ItemAt(index);
-			if (item)
+			if (item) {
+				item->SetType((enum item_types)index);
 				_AccountSelected(item);
+			}
 			break;
 		}
 
@@ -750,20 +751,26 @@ ConfigWindow::MessageReceived(BMessage *msg)
 		}
 
 		case kMsgRevertSettings:
+		{
 			_RevertToLastSettings();
 			break;
+		}
 
 		case kMsgSaveSettings:
+		{
 			fSaveSettings = true;
 			_SaveSettings();
 			AccountUpdated(fLastSelectedAccount);
 			_MakeHowToView();
 			fAccountsListView->DeselectAll();
 			break;
-
+		}
+		
 		default:
+		{
 			BWindow::MessageReceived(msg);
 			break;
+		}
 	}
 }
 
@@ -956,24 +963,30 @@ ConfigWindow::_AccountSelected(AccountItem* item)
 	BView* view = NULL;
 	switch (item->GetType()) {
 		case ACCOUNT_ITEM:
+		{
 			view = new AccountConfigView(fConfigView->Bounds(), account);
+			item->SetType(ACCOUNT_ITEM);
 			break;
+		}
 
 		case INBOUND_ITEM:
 		{
 			view = new InProtocolsConfigView(account);
+			item->SetType(INBOUND_ITEM);
 			break;
 		}
 
 		case OUTBOUND_ITEM:
 		{
 			view = new OutProtocolsConfigView(account);
+			item->SetType(OUTBOUND_ITEM);
 			break;
 		}
 
 		case FILTER_ITEM:
 		{
 			view = new FiltersConfigView(fConfigView->Bounds(), *account);
+			item->SetType(FILTER_ITEM);
 			break;
 		}
 	}
